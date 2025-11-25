@@ -24,7 +24,7 @@ export const Hero = () => {
                 Premium Phones & Expert Repairs
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
-                Your Trusted Phone Partner in LA
+                Your Trusted Phone Partner in  Los Angeles
               </h1>
               <p className="text-lg text-primary-foreground/80 max-w-xl">
                 Hollywood Phone Spot offers premium phones, expert repairs, quality accessories, and fast delivery across Los Angeles and beyond.

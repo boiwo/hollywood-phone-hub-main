@@ -133,7 +133,7 @@ export const CartSheet = ({
         items={items}
         total={total}
         onCheckoutComplete={() => {
-          // Clear cart after successful checkout
+          
           items.forEach(item => onRemoveItem(item.id));
         }}
       />
