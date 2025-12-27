@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle2 } from "lucide-react"; // ✅ success icon
+import { CheckCircle2 } from "lucide-react";
 import { CartItem } from "./CartSheet";
 
 interface CheckoutDialogProps {
@@ -29,12 +29,8 @@ export const CheckoutDialog = ({
   total,
   onCheckoutComplete,
 }: CheckoutDialogProps) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  });
-  const [success, setSuccess] = useState(false); // ✅ track success state
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [success, setSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -42,38 +38,38 @@ export const CheckoutDialog = ({
 
     if (!formData.name || !formData.phone || !formData.email) {
       toast({
-        title: "Error",
-        description: "Please fill in all fields",
+        title: "Missing Information",
+        description: "Please fill out all fields to continue.",
         variant: "destructive",
       });
       return;
     }
 
-    // Simulate order success
     toast({
       title: "Order Confirmed!",
-      description: `Thank you ${formData.name}! We'll contact you at ${formData.phone} to confirm delivery.`,
+      description: `Thank you, ${formData.name}. We'll contact you at ${formData.phone}.`,
     });
 
-    // Reset and show success dialog
-    setFormData({ name: "", phone: "", email: "" });
     onCheckoutComplete();
-    setSuccess(true); // ✅ show success dialog
+    setSuccess(true);
+    setFormData({ name: "", phone: "", email: "" });
   };
 
   return (
     <>
-      {/* Checkout Form Dialog */}
+      {/* Checkout Form */}
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md rounded-2xl shadow-xl p-6 bg-white">
           <DialogHeader>
-            <DialogTitle>Complete Your Purchase</DialogTitle>
-            <DialogDescription>
-              Enter your details to confirm your order of {items.length} item(s) - Total: ${total.toLocaleString()}
+            <DialogTitle className="text-xl font-bold tracking-tight">
+              Checkout Details
+            </DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              Complete your purchase of {items.length} item(s). Total: ${total.toLocaleString()}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <form onSubmit={handleSubmit} className="space-y-5 mt-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <Input
@@ -81,7 +77,7 @@ export const CheckoutDialog = ({
                 placeholder="John Doe"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
+                className="rounded-xl"
               />
             </div>
 
@@ -90,59 +86,67 @@ export const CheckoutDialog = ({
               <Input
                 id="phone"
                 type="tel"
-                placeholder="+1 (555) 000-0000"
+                placeholder="0712 345 678"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                required
+                className="rounded-xl"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Email Address</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="example@mail.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
+                className="rounded-xl"
               />
             </div>
 
-            <div className="bg-secondary/30 p-4 rounded-lg space-y-2">
-              <h4 className="font-semibold">Order Summary</h4>
+            <div className="bg-muted/40 p-4 rounded-xl shadow-inner space-y-2">
+              <h4 className="font-semibold text-base">Order Summary</h4>
+
               {items.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
-                  <span>{item.name} x{item.quantity}</span>
+                <div key={item.id} className="flex justify-between text-sm opacity-90">
+                  <span>
+                    {item.name} × {item.quantity}
+                  </span>
                   <span>${(item.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
-              <div className="flex justify-between font-bold pt-2 border-t">
+
+              <div className="flex justify-between font-bold text-lg pt-2 border-t">
                 <span>Total:</span>
                 <span className="text-accent">${total.toLocaleString()}</span>
               </div>
             </div>
 
-            <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-              Confirm Purchase
+            <Button
+              type="submit"
+              className="w-full py-6 rounded-xl text-lg bg-accent hover:bg-accent/90 text-accent-foreground shadow-md"
+            >
+              Confirm Order
             </Button>
           </form>
         </DialogContent>
       </Dialog>
 
-      {/* ✅ Success Dialog */}
+      {/* Success Dialog */}
       <Dialog open={success} onOpenChange={setSuccess}>
-        <DialogContent className="sm:max-w-sm text-center py-6">
-          <CheckCircle2 className="mx-auto text-green-500 w-16 h-16 mb-3" />
+        <DialogContent className="sm:max-w-sm text-center p-8 rounded-2xl bg-white shadow-2xl">
+          <CheckCircle2 className="mx-auto w-20 h-20 text-green-500 mb-4" />
+          
           <DialogHeader>
-            <DialogTitle>Purchase Successful!</DialogTitle>
-            <DialogDescription>
-              Thank you for shopping with us, {formData.name || "Customer"}.
-              Your order has been received successfully.
+            <DialogTitle className="text-2xl font-bold">Order Successful!</DialogTitle>
+            <DialogDescription className="text-muted-foreground text-sm">
+              Thank you for shopping with us! Your order has been received.
             </DialogDescription>
           </DialogHeader>
+
           <Button
-            className="mt-4 w-full"
+            className="mt-6 w-full rounded-xl py-3 text-base"
             onClick={() => {
               setSuccess(false);
               onOpenChange(false);
