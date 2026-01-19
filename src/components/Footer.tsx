@@ -86,7 +86,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 text-center text-sm text-primary-foreground/60">
-          <p>© 2024 Hollywood Phone Spot. All rights reserved.</p>
+          <p>© 2026 Hollywood Phone Spot. All rights reserved.</p>
         </div>
       </div>
     </footer>
