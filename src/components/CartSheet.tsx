@@ -196,7 +196,7 @@ export const CheckoutPageMock = ({
             </div>
           </section>
 
-          {/* Terms and Privacy */}
+          
           <section className="space-y-4">
             <p className="text-xs text-gray-500">
               Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
@@ -219,12 +219,12 @@ export const CheckoutPageMock = ({
           </section>
         </div>
 
-        {/* === Right Column: Your Order / Summary === */}
+        
         <div className="lg:col-span-1">
           <div className="sticky top-8 p-6 bg-white border-2 border-blue-100 rounded-2xl shadow-lg space-y-6">
             <h2 className="text-2xl font-bold text-gray-800 border-b pb-3">Your order</h2>
 
-            {/* Order Items */}
+            
             <table className="w-full text-sm text-gray-700">
               <thead>
                 <tr className="border-b">
@@ -242,14 +242,14 @@ export const CheckoutPageMock = ({
               </tbody>
             </table>
 
-            {/* Summary Lines */}
+            
             <div className="space-y-2 border-t pt-4">
               <div className="flex justify-between font-medium">
                 <span>Subtotal</span>
                 <span>KSh {subtotal.toLocaleString()}</span>
               </div>
 
-              {/* Shipping Options (Radio Group) */}
+              
               <div className="pt-2 space-y-2">
                 <span className="font-medium block mb-1">Shipping</span>
                 {(Object.keys(SHIPPING_OPTIONS) as Array<keyof typeof SHIPPING_OPTIONS>).map((key) => (
